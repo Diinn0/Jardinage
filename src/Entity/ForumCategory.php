@@ -32,16 +32,27 @@ class ForumCategory
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $imgage;
+    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="category")
      */
     private $comment;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ForumCategory::class, inversedBy="forumCategories")
+     */
+    private $parentCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ForumCategory::class, mappedBy="subCategories")
+     */
+    private $subCategories;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
+        $this->subCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,14 +84,14 @@ class ForumCategory
         return $this;
     }
 
-    public function getImgage(): ?string
+    public function getImage(): ?string
     {
-        return $this->imgage;
+        return $this->image;
     }
 
-    public function setImgage(string $imgage): self
+    public function setImage(string $image): self
     {
-        $this->imgage = $imgage;
+        $this->image = $image;
 
         return $this;
     }
@@ -109,6 +120,48 @@ class ForumCategory
             // set the owning side to null (unless already changed)
             if ($comment->getCategory() === $this) {
                 $comment->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getParentCategory(): ?self
+    {
+        return $this->parentCategory;
+    }
+
+    public function setParentCategory(?self $parentCategory): self
+    {
+        $this->parentCategory = $parentCategory;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getSubCategories(): Collection
+    {
+        return $this->subCategories;
+    }
+
+    public function addForumCategory(self $forumCategory): self
+    {
+        if (!$this->subCategories->contains($forumCategory)) {
+            $this->subCategories[] = $forumCategory;
+            $forumCategory->setParentCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumCategory(self $forumCategory): self
+    {
+        if ($this->subCategories->removeElement($forumCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($forumCategory->getParentCategory() === $this) {
+                $forumCategory->setParentCategory(null);
             }
         }
 
