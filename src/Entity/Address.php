@@ -35,7 +35,7 @@ class Address
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $countrt;
+    private $country;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="addresses")
@@ -84,14 +84,14 @@ class Address
         return $this;
     }
 
-    public function getCountrt(): ?string
+    public function getCountry(): ?string
     {
-        return $this->countrt;
+        return $this->country;
     }
 
-    public function setCountrt(string $countrt): self
+    public function setCountry(string $country): self
     {
-        $this->countrt = $countrt;
+        $this->country = $country;
 
         return $this;
     }
