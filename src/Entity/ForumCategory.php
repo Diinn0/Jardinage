@@ -37,21 +37,26 @@ class ForumCategory
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="category")
      */
-    private $comment;
+    private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ForumCategory::class, inversedBy="forumCategories")
+     * @ORM\Column(type="integer")
      */
-    private $parentCategory;
+    private $priority = 0;
 
     /**
-     * @ORM\OneToMany(targetEntity=ForumCategory::class, mappedBy="subCategories")
+     * @ORM\ManyToOne(targetEntity=ForumCategory::class, inversedBy="subCategories")
+     */
+    private $mainCategory;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ForumCategory::class, mappedBy="mainCategory")
      */
     private $subCategories;
 
     public function __construct()
     {
-        $this->comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->subCategories = new ArrayCollection();
     }
 
@@ -99,15 +104,15 @@ class ForumCategory
     /**
      * @return Collection|Comment[]
      */
-    public function getComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
             $comment->setCategory($this);
         }
 
@@ -116,7 +121,7 @@ class ForumCategory
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comment->removeElement($comment)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
             if ($comment->getCategory() === $this) {
                 $comment->setCategory(null);
@@ -126,14 +131,26 @@ class ForumCategory
         return $this;
     }
 
-    public function getParentCategory(): ?self
+    public function getPriority(): ?int
     {
-        return $this->parentCategory;
+        return $this->priority;
     }
 
-    public function setParentCategory(?self $parentCategory): self
+    public function setPriority(int $priority): self
     {
-        $this->parentCategory = $parentCategory;
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getMainCategory(): ?self
+    {
+        return $this->mainCategory;
+    }
+
+    public function setMainCategory(?self $mainCategory): self
+    {
+        $this->mainCategory = $mainCategory;
 
         return $this;
     }
@@ -146,22 +163,22 @@ class ForumCategory
         return $this->subCategories;
     }
 
-    public function addForumCategory(self $forumCategory): self
+    public function addSubCategory(self $subCategory): self
     {
-        if (!$this->subCategories->contains($forumCategory)) {
-            $this->subCategories[] = $forumCategory;
-            $forumCategory->setParentCategory($this);
+        if (!$this->subCategories->contains($subCategory)) {
+            $this->subCategories[] = $subCategory;
+            $subCategory->setMainCategory($this);
         }
 
         return $this;
     }
 
-    public function removeForumCategory(self $forumCategory): self
+    public function removeSubCategory(self $subCategory): self
     {
-        if ($this->subCategories->removeElement($forumCategory)) {
+        if ($this->subCategories->removeElement($subCategory)) {
             // set the owning side to null (unless already changed)
-            if ($forumCategory->getParentCategory() === $this) {
-                $forumCategory->setParentCategory(null);
+            if ($subCategory->getMainCategory() === $this) {
+                $subCategory->setMainCategory(null);
             }
         }
 
