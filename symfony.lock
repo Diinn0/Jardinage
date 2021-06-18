@@ -118,12 +118,6 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.2.0"
-    },
     "monolog/monolog": {
         "version": "2.2.0"
     },
@@ -608,7 +602,7 @@
         "version": "v1.0.1"
     },
     "symfony/uid": {
-        "version": "v5.3.0"
+        "version": "v5.3.2"
     },
     "symfony/validator": {
         "version": "4.3",

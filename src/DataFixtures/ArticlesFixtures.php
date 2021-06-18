@@ -49,7 +49,8 @@ class ArticlesFixtures extends Fixture
                 ->setImage('none')
                 ->setCategory($categories[$object['category']])
                 ->setPrice($generator->randomFloat(2, 2, 100))
-                ->setSales($generator->numberBetween(50, 150));
+                ->setSales($generator->numberBetween(50, 150))
+                ->setSlug($object['name']);
 
             foreach ($object['tags'] as $tag) {
                 $article->addTag($tags[$tag]);
