@@ -19,22 +19,34 @@ class ForumCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, ForumCategory::class);
     }
 
-    // /**
-    //  * @return ForumCategory[] Returns an array of ForumCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return ForumCategory[] Returns an array of ForumCategory objects
+     */
+    public function findMainCategories(): array
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('f.mainCategory is null')
+            ->orderBy('f.priority', 'ASC')
             ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    /**
+     * @return ForumCategory[] Returns an array of ForumCategory objects
+     */
+    public function findSubCategoriesByMain(ForumCategory $category): array
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.mainCategory = :category')
+            ->setParameter('category', $category)
+            ->orderBy('f.priority', 'ASC')
+            ->orderBy('f.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     /*
     public function findOneBySomeField($value): ?ForumCategory
