@@ -48,6 +48,7 @@ class ForumController extends AbstractController
         return $this->render('forum/index.html.twig', [
             'parentCategory' => $parentCategory,
             'categories' => $categories,
+            'parents' => $this->getParents($parentCategory),
         ]);
     }
 
@@ -62,7 +63,7 @@ class ForumController extends AbstractController
         $comment->getAnswers()->initialize();
         return $this->render('forum/post.html.twig', [
             'comment' => $comment,
-            'parents' => $this->getParents($comment),
+            'parents' => $this->getParents($comment->getCategory()),
         ]);
     }
 
@@ -131,9 +132,8 @@ class ForumController extends AbstractController
         ]);
     }
 
-    private function getParents(Comment $comment): ArrayCollection
+    private function getParents(ForumCategory $category): ArrayCollection
     {
-        $category = $comment->getCategory();
         $categories = new ArrayCollection();
         while ($category->getMainCategory() != null)
         {
