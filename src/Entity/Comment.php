@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,20 +47,40 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $User;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Comment::class)
+     * @ORM\ManyToOne(targetEntity=ForumCategory::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="answers")
+     */
+    private $parents;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="parents")
      */
     private $answers;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ForumCategory::class, inversedBy="comment")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=UserComment::class, inversedBy="comment")
      */
-    private $category;
+    private $userComment;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $anonyme = true;
+
+    public function __construct()
+    {
+        $this->answers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,18 +159,6 @@ class Comment
         return $this;
     }
 
-    public function getAnswers(): ?self
-    {
-        return $this->answers;
-    }
-
-    public function setAnswers(?self $answers): self
-    {
-        $this->answers = $answers;
-
-        return $this;
-    }
-
     public function getCategory(): ?ForumCategory
     {
         return $this->category;
@@ -160,4 +170,71 @@ class Comment
 
         return $this;
     }
+
+    public function getParents(): ?self
+    {
+        return $this->parents;
+    }
+
+    public function setParents(?self $parents): self
+    {
+        $this->parents = $parents;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(self $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setParents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(self $answer): self
+    {
+        if ($this->answers->removeElement($answer)) {
+            // set the owning side to null (unless already changed)
+            if ($answer->getParents() === $this) {
+                $answer->setParents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserComment(): ?UserComment
+    {
+        return $this->userComment;
+    }
+
+    public function setUserComment(?UserComment $userComment): self
+    {
+        $this->userComment = $userComment;
+
+        return $this;
+    }
+
+    public function getAnonyme(): ?bool
+    {
+        return $this->anonyme;
+    }
+
+    public function setAnonyme(bool $anonyme): self
+    {
+        $this->anonyme = $anonyme;
+
+        return $this;
+    }
+
 }

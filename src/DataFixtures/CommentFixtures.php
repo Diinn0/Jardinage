@@ -28,7 +28,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         $categoryArticle = new ForumCategory();
         $categoryArticle->setTitle('Article');
         $categoryArticle->setSubtitle($generator->words(4, true));
-        $categoryArticle->setParentCategory($category);
+        $category->addSubCategory($categoryArticle);
         $categoryArticle->setImage('none');
         $manager->persist($categoryArticle);
 
@@ -36,7 +36,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         {
             $comment = new Comment();
             $comment->setContent($generator->text);
-            $comment->setTitle($generator->title);
+            $comment->setTitle($generator->words(2, true));
             $comment->setDate(new \DateTime());
             $comment->setUser($users[array_rand($users, 1)]);
             $comment->setArticle($articles[array_rand($articles, 1)]);
