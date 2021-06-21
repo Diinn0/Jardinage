@@ -37,7 +37,7 @@
     <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top footerStyle">
-            <a class="navbar-brand" href="">Magasin du jardinage</a>
+            <a class="navbar-brand" href="">Chez Raclette & Binnette</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,13 +49,32 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ path('categories') }}">Nos catalogues <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('app_register') }}">Inscription <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('app_account') }}">Mon Compte <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('forum') }}">Forum <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('admin') }}">Admin <span class="sr-only">(current)</span></a>
+                    </li>
+                    
                 </ul>
                 <a href=""> <img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard"></a>
             </div>
         </nav>
     </header>
     <main>
-        <div class="container">
+        <div class="container" style="margin-top:100px">
             {% block content %}{% endblock %}
         </div>
     </main>

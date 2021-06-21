@@ -2,7 +2,7 @@
 
 {% block title %}Mon Compte{% endblock %}
 
-{% block body %}
+{% block content %}
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
@@ -30,7 +30,7 @@
 
 
     {% else %}
-        <span class="alert alert-info">Aucunes commandes effectuées</span>
+        <span class="alert alert-danger">Aucunes commandes effectuées</span>
     {% endfor %}
 
 
