@@ -132,6 +132,85 @@ class ForumController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/forum/c/{category?}/new", name="newPost", methods={"POST"})
+     */
+    public function newPost(String $category, Request $request): RedirectResponse
+    {
+        $forumCategoryRepository = $this->getDoctrine()->getRepository(ForumCategory::class);
+        $category = $forumCategoryRepository->findOneBy(array("id" => $category));
+
+        $userCommentRepository = $this->getDoctrine()->getRepository(UserComment::class);
+
+        $email = $request->get("email");
+        $isAnonyme = $request->get("anonyme");
+        $content = $request->get("content");
+        $title = $request->get("title");
+
+        if ($content == null)
+        {
+            return $this->redirectToRoute("showCategory", [
+                "category" => $category
+            ]);
+        }
+
+        if ($email == null)
+        {
+            return $this->redirectToRoute("showCategory", [
+                "category" => $category
+            ]);
+        }
+
+        $user = $userCommentRepository->findOneBy(array("email" => $email));
+        if ($user == null) {
+            $user = new UserComment();
+        }
+        $user->setEmail($email);
+
+        $comment = new Comment();
+
+        if ($isAnonyme != null && $isAnonyme == "no") {
+            $firstname = $request->get("firstname");
+            $lastname = $request->get("lastname");
+
+            if ($firstname != null && $lastname != null)
+            {
+                $comment->setAnonyme(false);
+                $user->setFirstname($firstname);
+                $user->setLastname($lastname);
+            }
+        }
+
+        $user->setIp($request->getClientIp());
+        $this->getDoctrine()->getManager()->persist($user);
+
+        $comment->setContent($content);
+        $comment->setUserComment($user);
+        $comment->setTitle($title);
+        $comment->setDate(new \DateTime());
+        $comment->setCategory($category);
+
+        $this->getDoctrine()->getManager()->persist($comment);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute("showPost", [
+            "post" => $comment->getId()
+        ]);
+
+    }
+
+    /**
+     * @Route("/forum/c/{category?}/new", name="newPostForm", methods={"GET"})
+     */
+    public function newPostForm(String $category, Request $request): Response {
+        $categoriesRepository = $this->getDoctrine()->getRepository(ForumCategory::class);
+        $parentCategory = $categoriesRepository->find($category);
+
+        return $this->render("forum/newPost.html.twig", [
+            'parents' => $this->getParents($parentCategory)
+        ]);
+    }
+
     private function getParents(ForumCategory $category): ArrayCollection
     {
         $categories = new ArrayCollection();
