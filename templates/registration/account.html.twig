@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Mon Compte</h1>
+    <p class="lead">Historique et suivi de vos commandes :)</p>
+  </div>
+</div>
+
+<div class="container">
+
+    {% for order in orders %}
+
+        <div class="card mb-5">
+            <div class="card-header">
+                Commande n° {{ order.id }}
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>Prix: {{ order.sum }} €</p>
+                    <!--<p>Date: <span class="badge badge-info">{{ order.date }} </span></p>-->
+                    <footer class="blockquote-footer">Achat effectué le  <cite title="Source Title">{{ order.date|date("m/d/Y") }}</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+
+
+    {% else %}
+        <span class="alert alert-info">Aucunes commandes effectuées</span>
+    {% endfor %}
+
+
+</div>
+{% endblock %}
