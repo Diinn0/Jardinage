@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Provider\Image;
 
 class ArticlesFixtures extends Fixture
 {
@@ -16,14 +17,14 @@ class ArticlesFixtures extends Fixture
         $categories = ['Graines' => null, 'Plants' => null, 'Outils' => null];
         $tags = ['Graine' => null, 'Légume' => null, 'Fruit' => null, 'Outil' => null, 'Plant' => null, 'Pommier' => null];
         $articles = [
-            ['name' => 'Graine de carottes', 'tags' => ['Graine', 'Légume'], 'category' => 'Graines'],
-            ['name' => 'Graine de radis', 'tags' => ['Graine', 'Légume'], 'category' => 'Graines'],
-            ['name' => 'Plant de courgette', 'tags' => ['Légume', 'Plant'], 'category' => 'Plants'],
-            ['name' => 'Plant de melon', 'tags' => ['Fruit', 'Plant'], 'category' => 'Plants'],
-            ['name' => 'Bêche', 'tags' => ['Outil'], 'category' => 'Outils'],
-            ['name' => 'Râteau', 'tags' => ['Outil'], 'category' => 'Outils'],
-            ['name' => 'Plant de pommier : Gala', 'tags' => ['Plant', 'Fruit', 'Pommier'], 'category' => 'Plants'],
-            ['name' => 'Plant de pommier : Ariane', 'tags' => ['Plant', 'Fruit', 'Pommier'], 'category' => 'Plants']
+            ['name' => 'Graine de carottes', 'tags' => ['Graine', 'Légume'], 'category' => 'Graines', 'image' => "shirt.jpg"],
+            ['name' => 'Graine de radis', 'tags' => ['Graine', 'Légume'], 'category' => 'Graines', 'image' => "shirt.jpg"],
+            ['name' => 'Plant de courgette', 'tags' => ['Légume', 'Plant'], 'category' => 'Plants', 'image' => "shirt.jpg"],
+            ['name' => 'Plant de melon', 'tags' => ['Fruit', 'Plant'], 'category' => 'Plants', 'image' => "shirt.jpg"],
+            ['name' => 'Bêche', 'tags' => ['Outil'], 'category' => 'Outils', 'image' => "shirt.jpg"],
+            ['name' => 'Râteau', 'tags' => ['Outil'], 'category' => 'Outils', 'image' => "shirt.jpg"],
+            ['name' => 'Plant de pommier : Gala', 'tags' => ['Plant', 'Fruit', 'Pommier'], 'category' => 'Plants', 'image' => "shirt.jpg"],
+            ['name' => 'Plant de pommier : Ariane', 'tags' => ['Plant', 'Fruit', 'Pommier'], 'category' => 'Plants', 'image' => "shirt.jpg"]
         ];
 
         foreach ($categories as $label => $obj) {
@@ -46,7 +47,7 @@ class ArticlesFixtures extends Fixture
             $article = new Article();
             $article->setLabel($object['name'])
                 ->setDescription($generator->text)
-                ->setImage('none')
+                ->setImage($object['image'])
                 ->setCategory($categories[$object['category']])
                 ->setPrice($generator->randomFloat(2, 2, 100))
                 ->setSales($generator->numberBetween(50, 150))
