@@ -33,6 +33,30 @@
         {% endblock %}
     </head>
     <body>
-        {% block content %}{% endblock %}
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top footerStyle">
+            <a class="navbar-brand" href="">Magasin du jardinage</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('categories') }}">Nos catalogues <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <a href=""> <img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard"></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
     </body>
 </html>
