@@ -34,6 +34,10 @@ class Tag
         $this->articles = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->getLabel();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

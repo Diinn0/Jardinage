@@ -2,7 +2,7 @@
 
 {% block title %}Hello ForumController!{% endblock %}
 
-{% block body %}
+{% block content %}
 
     <div class="container bg-white">
         {% if parentCategory is defined %}
@@ -43,7 +43,13 @@
                             <p>{{ subCategory.subtitle }}</p>
                         </td>
                         <td class="align-middle" style="border-left: none;">
-                            {{ subCategory.comments.count}} Sujet(s)
+                            {% set counter = 0 %}
+                            {% for comment in subCategory.comments %}
+                                {% if comment.parents == null %}
+                                    {% set counter = counter + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {{ counter }} Sujet(s)
                         </td>
                         <td class="align-middle" style="border-left: 1px solid rgba(0, 0, 0, 0.06);">
                             <p>
@@ -86,7 +92,13 @@
                         <p>{{ category.subtitle }}</p>
                     </td>
                     <td class="align-middle" style="border-left: none;">
-                       {{ category.comments.count}} Sujet(s)
+                        {% set counter = 0 %}
+                        {% for comment in category.comments %}
+                            {% if comment.parents == null %}
+                                {% set counter = counter + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ counter }} Sujet(s)
                     </td>
                     <td class="align-middle" style="border-left: 1px solid rgba(0, 0, 0, 0.06);">
                         <p>

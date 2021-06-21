@@ -29,8 +29,8 @@ class ArticleCrudController extends AbstractCrudController
             TextField::new('label'),
             SlugField::new('slug')->setTargetFieldName('label'),
             ImageField::new('image')
-                ->setBasePath('uploads/none')
-                ->setUploadDir('public/uploads/none')
+                ->setBasePath('uploads/')
+                ->setUploadDir('public/uploads')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
             TextareaField::new('description'),

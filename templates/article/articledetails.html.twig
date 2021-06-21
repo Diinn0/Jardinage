@@ -1,0 +1,22 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Magasin du Jardinage{% endblock %}
+
+{% block content %}
+    <div class="row mt-5">
+        <div class="col-md-12"><h1> {{ article.label }}</h1></div>
+        <div class="col-md-6">
+            <img src="/uploads/{{ article.image }}" alt="{{ article.image }}">
+            <div class="d-flex">
+                <p class="ml-5">{{ article.price }}€</p>
+            </div>
+        </div>
+        <div class="col-md-6 addToCard">
+            <p>{{ article.description }}</p>
+            <a class="btn btn-secondary btn-lg" href="">Ajouter au panier</a>
+        </div>
+    </div>
+
+
+{% endblock %}

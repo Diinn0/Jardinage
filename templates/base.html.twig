@@ -34,42 +34,31 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
         {% endblock %}
     </head>
-
-    <nav class="navbar fixed-top navbar-expand-lg bg-success">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="">Chez Raclette & Binnette</a>
-            </div>
-
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{ path('app_login') }}" class="nav-link">Login</a>
+    <body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top footerStyle">
+            <a class="navbar-brand" href="">Magasin du jardinage</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_register') }}" class="nav-link">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_logout') }}" class="nav-link">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('forum') }}" class="nav-link">forum</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('categories') }}">Nos catalogues <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
-
-                <!--<form class="form-inline ml-auto">
-                    <div class="form-group no-border">
-                    <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-white btn-just-icon btn-round">
-                        <i class="material-icons">search</i>
-                    </button>
-                </form>-->
+                <a href=""> <img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard"></a>
             </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
         </div>
-    </nav>
+    </main>
 
-    <body style="margin-top:100px">
-        {% block body %}{% endblock %}
     </body>
 </html>
