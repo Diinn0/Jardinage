@@ -22,12 +22,7 @@ class UserComment
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $lastname;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,33 +49,16 @@ class UserComment
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getUsername(): ?string
     {
-        return $this->firstname;
+        return $this->username;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setUsername(string $username): self
     {
-        $this->firstname = $firstname;
+        $this->username = $username;
 
         return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
     }
 
     public function setEmail(string $email): self
@@ -88,6 +66,11 @@ class UserComment
         $this->email = $email;
 
         return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     public function getIp(): ?string
