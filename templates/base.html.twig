@@ -51,7 +51,8 @@
                                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                                 </form>
-                                <a href=""><img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard"></a>
+                                <a href="{{ path('cart') }}"><img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard">
+                                    <span class="badge badge-default">{{ cartService.getCart.count }}</span></a>
                             </div>
 
                         </div>
