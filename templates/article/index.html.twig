@@ -1,23 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello ArticleController!{% endblock %}
-
+{% block stylesheets %}{% endblock %}
 {% block content %}
-    <div class="row mt-5">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <div class="row">
         {% for article in articles %}
-            <div class="col-md-4 mt-5">
+            <div class="col-md-4 mt-5 p-0">
                 <a class="text-decoration-none" href="{{ path('articledetails', {'slug':article.slug}) }}">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top img-fluid" src="/uploads/{{ article.image }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ article.label }}</h5>
+                    <div class="border border-dark">
+                        <img class=" img-fluid px-3 pt-5" src="/uploads/{{ article.image }}" alt="Card image cap">
+                        <div>
+                            <h5 class="text-center">{{ article.label }}</h5>
                             <div class="d-flex justify-content-between">
-                                <span>{{ article.price }}€</span>
+                                <span class="ml-2" style="color: black">{{ article.price }}€</span>
+                                <button type="button" class="btn btn-dark mb-0  rounded-0">Ajouter au panier</button>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
         {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

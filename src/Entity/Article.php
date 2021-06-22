@@ -91,6 +91,7 @@ class Article
         return $this->label;
     }
 
+
     public function setLabel(string $label): self
     {
         $this->label = $label;
@@ -178,15 +179,21 @@ class Article
         return $this->tags;
     }
 
+
+
+
     public function addTag(Tag $tag): self
     {
+
         if (!$this->tags->contains($tag)) {
+
             $this->tags[] = $tag;
             $tag->addArticle($this);
         }
 
         return $this;
     }
+
 
     public function removeTag(Tag $tag): self
     {
