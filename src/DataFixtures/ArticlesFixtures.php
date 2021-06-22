@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Provider\Image;
@@ -13,6 +14,7 @@ class ArticlesFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $slugify = new Slugify();
         $generator = \Faker\Factory::create('fr_FR');
         $categories = ['Graines' => null, 'Plants' => null, 'Outils' => null];
         $tags = ['Graine' => null, 'Légume' => null, 'Fruit' => null, 'Outil' => null, 'Plant' => null, 'Pommier' => null];
@@ -51,7 +53,7 @@ class ArticlesFixtures extends Fixture
                 ->setCategory($categories[$object['category']])
                 ->setPrice($generator->randomFloat(2, 2, 100))
                 ->setSales($generator->numberBetween(50, 150))
-                ->setSlug($object['name']);
+                ->setSlug($slugify->slugify($object['name']));
 
             foreach ($object['tags'] as $tag) {
                 $article->addTag($tags[$tag]);
