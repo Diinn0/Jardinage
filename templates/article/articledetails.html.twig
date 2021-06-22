@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6 addToCard">
             <p class="ml-5">{{ article.price }}€</p>
-            <a class="btn btn-secondary btn-lg" href="">Ajouter au panier</a>
+            <a class="btn btn-secondary btn-lg" href="{{ path('addToCart', {'slug': article.slug, 'quantity': 1}) }}">Ajouter au panier</a>
         </div>
         <div class="col-md-12">
             <h5 style="text-transform: none">Description</h5>
