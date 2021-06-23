@@ -122,11 +122,18 @@ class CartController extends AbstractController
             foreach ($cart as $item) {
                 $order->addOrderLine($item);
                 $total += $item->getQuantity() * $item->getArticle()->getPrice();
+
+                $this->getDoctrine()->getManager()->persist($item);
             }
 
             $order->setSum($total);
             $order->setDate(new \DateTime());
             $order->setUser($user);
+
+            $this->getDoctrine()->getManager()->persist($order);
+            $this->getDoctrine()->getManager()->flush();
+            $cart->clear();
+            $session->save();
         }
 
         return $this->redirectToRoute('cart');
