@@ -12,6 +12,13 @@
             selector: '.content'
         });
     </script>
+
+    <style>
+        img {
+            max-width: 500px;
+            max-height: 500px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -39,19 +46,9 @@
 
         {% for comment in comments %}
             <div class="bg-default border mt-0 p-2">
+                <h4>{{ comment.title }}</h4>
                 <div class="row align-items-center">
-                    <div class="col-sm-4 text-center">
-                        {% if comment.user != null %}
-                            <p>{{ comment.user.username }} </p>
-                        {% else %}
-                            {% if comment.anonyme %}
-                                <p>Anonyme</p>
-                            {% else %}
-                                <p>{{ comment.userComment.username }} </p>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm">
                         <p>Message posté le {{ comment.date | date("d/m/Y") }} à {{ comment.date | date("H:i:s") }} par
                             {% if comment.user != null %}
                                 {{ comment.user.username }}
@@ -70,19 +67,8 @@
                 </div>
                 {% for answer in comment.answers %}
                     <div class="row">
-                        <div class="col-sm-4"></div>
-                        <div class="col-sm-2 text-center">
-                            {% if answer.user != null %}
-                                <p>{{ answer.user.username }} </p>
-                            {% else %}
-                                {% if answer.anonyme %}
-                                    <p>Anonyme</p>
-                                {% else %}
-                                    <p>{{ answer.userComment.username }} </p>
-                                {% endif %}
-                            {% endif %}
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm">
                             <p>Message posté le {{ answer.date | date("d/m/Y") }} à {{ answer.date | date("H:i:s") }} par
                                 {% if answer.user != null %}
                                     {{ answer.user.username }}
@@ -101,7 +87,7 @@
                     </div>
                 {% endfor %}
                 <div class="row">
-                    <div class="col-sm-4"></div>
+                    <div class="col-sm-1"></div>
                     <div class="col-sm">
                         <form class="m-0" method="post" action="{{ path('answerComment', {'slug': article.slug, 'commentStr': comment.id}) }}">
                             <div class="row">
@@ -181,19 +167,6 @@
     </div>
 
     <script>
-        let editors = ['#editor'];
-        {% for comment in comments %}
-            editors.push('#editor-{{ comment.id }}');
-        {% endfor %}
-
-        for (let editor of editors)
-        {
-            new Quill(editor, {
-                theme: 'snow',
-                placeholder: 'Contenu du sujet'
-            });
-        }
-
         function refresh() {
             let info = document.getElementById("info");
             info.classList.toggle("d-none", document.getElementById("anonyme").checked)
@@ -205,7 +178,6 @@
         }
 
     </script>
-
 {% endblock %}
 
 {% block javascripts %}
@@ -234,5 +206,4 @@
         });
 
     </script>
-<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 {% endblock %}
