@@ -115,11 +115,11 @@ class CartController extends AbstractController
          * @var User $user
          */
         $user = $this->security->getUser();
-        //dd($user);
         if ($user != null) {
             $order = new Order();
             $total = 0;
             foreach ($cart as $item) {
+                //dd($item);
                 $order->addOrderLine($item);
                 $total += $item->getQuantity() * $item->getArticle()->getPrice();
 
