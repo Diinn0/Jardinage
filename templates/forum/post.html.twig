@@ -29,24 +29,24 @@
                 <div class="row align-items-center">
                     <div class="col-sm-4 text-center">
                         {% if comment.user != null %}
-                            <p>{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                            <p>{{ comment.user.username }}</p>
                         {% else %}
                             {% if comment.anonyme %}
                                 <p>Anonyme</p>
                             {% else %}
-                                <p>{{ comment.userComment.firstname }} {{ comment.userComment.lastname }}</p>
+                                <p>{{ comment.userComment.username }}</p>
                             {% endif %}
                         {% endif %}
                     </div>
                     <div class="col-sm-8">
                         <p>Message posté le {{ comment.date | date("d/m/Y") }} à {{ comment.date | date("H:i:s") }} par
                             {% if comment.user != null %}
-                                {{ comment.user.firstname }} {{ comment.user.lastname }}
+                                {{ comment.user.username }}
                             {% else %}
                                 {% if comment.anonyme %}
                                     Anonyme
                                 {% else %}
-                                    {{ comment.userComment.firstname }} {{ comment.userComment.lastname }}
+                                    {{ comment.userComment.username }}
                                 {% endif %}
                             {% endif %}</p>
                         <div class="border bg-white p-2">
@@ -60,24 +60,24 @@
                     <div class="row align-items-center">
                         <div class="col-sm-4 text-center">
                             {% if answer.user != null %}
-                                <p>{{ answer.user.firstname }} {{ answer.user.lastname }}</p>
+                                <p>{{ answer.user.username }}</p>
                             {% else %}
                                 {% if answer.anonyme %}
                                     <p>Anonyme</p>
                                 {% else %}
-                                    <p>{{ answer.userComment.firstname }} {{ answer.userComment.lastname }}</p>
+                                    <p>{{ answer.userComment.username }} </p>
                                 {% endif %}
                             {% endif %}
                         </div>
                         <div class="col-sm-8">
                             <p>Message posté le {{ answer.date | date("d/m/Y") }} à {{ answer.date | date("H:i:s") }} par
                             {% if answer.user != null %}
-                                {{ answer.user.firstname }} {{ answer.user.lastname }}
+                                {{ answer.user.username }}
                             {% else %}
                                 {% if answer.anonyme %}
                                     Anonyme
                                 {% else %}
-                                    {{ answer.userComment.firstname }} {{ answer.userComment.lastname }}
+                                    {{ answer.userComment.username }}
                                 {% endif %}
                             {% endif %}
                             </p>
@@ -108,12 +108,7 @@
                         <div id="info" class="row d-none">
                             <div class="col-sm">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom">
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Pseudonyme">
                                 </div>
                             </div>
                         </div>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/css/material-kit.min.css" integrity="sha512-maBfUe6UBMwSa9YhA4MKGi7M/KMBw8KEt5HsqKHWNXCST1qzjlNgxOCP7M+eNRI2T/JQpWRUHI8quTNhWTTKtQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" integrity="sha256-u40zn9KeZYpMjgYaxWJccb4HnP0i8XI17xkXrEklevE=" crossorigin="anonymous">{#        <link href="../public/assets/css/style.css" rel="stylesheet">#}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" integrity="sha256-u40zn9KeZYpMjgYaxWJccb4HnP0i8XI17xkXrEklevE=" crossorigin="anonymous">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="d-flex align-items-center">
-                            <a class="navbar-brand ml-3" href=""><img class="logo" style="height:30px; width:25px"  src="{{ asset('assets/images/jardinageGrenouille.png') }}" alt="logo"></a>
+                            <a class="navbar-brand ml-3" href=""><img class="logo" src="{{ asset('assets/images/jardinageGrenouille.png') }}" alt="logo"></a>
                             <div>Chez Raclette & Binnette</div>
                             </div>
                         </div>
@@ -51,7 +51,8 @@
                                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                                 </form>
-                                <a href=""><img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard"></a>
+                                <a href="{{ path('cart') }}"><img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard">
+                                    <span class="badge badge-default">{{ cartService.getCart.count }}</span></a>
                             </div>
 
                         </div>
