@@ -18,13 +18,13 @@ class OrderLine
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderLines")
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderLines", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $orderObject;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
