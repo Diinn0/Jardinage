@@ -28,6 +28,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         $categoryArticle = new ForumCategory();
         $categoryArticle->setTitle('Article');
         $categoryArticle->setSubtitle($generator->words(4, true));
+        $categoryArticle->setArticleMain(true);
         $category->addSubCategory($categoryArticle);
         $categoryArticle->setImage('none');
         $manager->persist($categoryArticle);
