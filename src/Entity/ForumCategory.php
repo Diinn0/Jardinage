@@ -54,6 +54,11 @@ class ForumCategory
      */
     private $subCategories;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isArticleMain = false;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -151,6 +156,18 @@ class ForumCategory
     public function setMainCategory(?self $mainCategory): self
     {
         $this->mainCategory = $mainCategory;
+
+        return $this;
+    }
+
+    public function isArticleMain(): bool
+    {
+        return $this->isArticleMain;
+    }
+
+    public function setArticleMain(bool $articleMain): ?self
+    {
+        $this->isArticleMain = $articleMain;
 
         return $this;
     }

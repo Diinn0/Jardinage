@@ -64,6 +64,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
@@ -152,7 +157,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getUsername() {}
+    public function setUsername(String $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
 
     public function getFirstname(): ?string
     {
