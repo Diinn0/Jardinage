@@ -104,6 +104,7 @@ class CartController extends AbstractController
     {
         $session = new Session();
         $cart = $session->get('cart');
+        $entityManager = $this->getDoctrine()->getManager();
 
         if ($cart == null)
         {
@@ -114,6 +115,7 @@ class CartController extends AbstractController
          * @var User $user
          */
         $user = $this->security->getUser();
+        //dd($user);
         if ($user != null) {
             $order = new Order();
             $total = 0;
