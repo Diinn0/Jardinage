@@ -17,20 +17,7 @@
         {% endblock %}
 
         {% block javascripts %}
-         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'fr'
-            });
-            calendar.render();
-        });
-    </script>
-            {#<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js" integrity="sha512-CO/pFxjZ1nB8fwRKsl6PECMITMn3ogWKGhFis1RuVXRjDR+1eSRbxg4WiwKObSk13C7RBxKPfld+GDATJGO+ew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
+
         {% endblock %}
     </head>
     <body>
