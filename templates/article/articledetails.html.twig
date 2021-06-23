@@ -16,8 +16,34 @@
         <div class="col-md-12">
             <h5 style="text-transform: none">Description</h5>
             <p>{{ article.description }}</p>
-            <div id='calendar'></div>
         </div>
-    </div>
+        <div class="col-md-12"><div class="w-50" id="timeline"></div></div>
 
+    </div>
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('assets/js/chronoline.js/chronoline/chronoline.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js" integrity="sha512-tBzZQxySO5q5lqwLWfu8Q+o4VkTcRGOeQGVQ0ueJga4A1RKuzmAu5HXDOXLEjpbKyV7ow9ympVoa6wZLEzRzDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.js" integrity="sha512-2h6nRNAf9ejT/sqEs1Pg7mmafcJCla+tVGo1zDQDH1U+abXb0CxzjGIJEFpzHSfG27bGHM4K+UpDXwaF0gzCHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+        $(document).ready(function () {
+            var calendarFrom = {{ article.calendarFrom|date('Y-m-d')|json_encode|raw}};
+            var calendarTo = {{ article.calendarTo|date('Y-m-d')|json_encode|raw}};
+            console.log("from",calendarFrom )
+            console.log("to",calendarTo )
+            var calendarToDate = calendarTo.split('-');
+            var calendarFromDate = calendarFrom.split('-');
+            var events = [
+                {
+                    dates:[new Date(calendarFromDate[0],calendarFromDate[1]-1, calendarFromDate[2]), new Date(calendarToDate[0],calendarToDate[1]-1, calendarToDate[2])],
+
+                }
+            ];
+
+            var timeline = new Chronoline($("#timeline").get(0), events, {});
+        });
+
+</script>
+{% endblock %}
 {% endblock %}
