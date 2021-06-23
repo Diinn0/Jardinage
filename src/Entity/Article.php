@@ -35,9 +35,9 @@ class Article
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=4000, nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $calendar;
+    private $calendarFrom;
 
     /**
      * @ORM\Column(type="float")
@@ -73,6 +73,11 @@ class Article
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $calendarTo;
 
     public function __construct()
     {
@@ -123,17 +128,18 @@ class Article
         return $this;
     }
 
-    public function getCalendar(): ?string
+    public function getCalendarFrom():  ?\DateTimeInterface
     {
-        return $this->calendar;
+        return $this->calendarFrom;
     }
 
-    public function setCalendar(?string $calendar): self
+    public function setCalendarFrom(?\DateTimeInterface $calendarFrom): self
     {
-        $this->calendar = $calendar;
+        $this->calendarFrom = $calendarFrom;
 
         return $this;
     }
+
 
     public function getPrice(): ?float
     {
@@ -257,4 +263,17 @@ class Article
 
         return $this;
     }
+
+    public function getCalendarTo(): ?\DateTimeInterface
+    {
+        return $this->calendarTo;
+    }
+
+    public function setCalendarTo(?\DateTimeInterface $calendarTo): self
+    {
+        $this->calendarTo = $calendarTo;
+
+        return $this;
+    }
+
 }

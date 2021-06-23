@@ -36,7 +36,10 @@ class ArticleCrudController extends AbstractCrudController
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
             TextareaField::new('description'),
-            DateField::new('calendar'),
+            DateField::new('calendarFrom')
+            ->setRequired(false),
+            DateField::new('calendarTo')
+            ->setRequired(false),
             MoneyField::new('price')->setCurrency('EUR'),
             NumberField::new('sales'),
             BooleanField::new('available'),
