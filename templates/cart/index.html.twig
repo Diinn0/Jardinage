@@ -29,6 +29,8 @@
                 </div>
             </div>
             {% set total = total + cartList.article.price * cartList.quantity %}
+        {% else %}
+            <h4 class="mr-auto ml-auto mt-3">Aucun article dans votre panier</h4>
         {% endfor %}
         <hr class="ml-auto mr-auto" style="width: 70%;">
         <div class="card-body">
@@ -39,4 +41,5 @@
             </div>
         </div>
     </ul>
+    <a class="btn btn-primary {{ cartService.cart ? "disabled" : "" }}" href="{{ path('pay') }}">Payer la commande</a>
 {% endblock %}

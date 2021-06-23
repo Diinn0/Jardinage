@@ -103,14 +103,12 @@ class ForumController extends AbstractController
         $comment = new Comment();
 
         if ($isAnonyme != null && $isAnonyme == "no") {
-            $firstname = $request->get("firstname");
-            $lastname = $request->get("lastname");
+            $username = $request->get("username");
 
-            if ($firstname != null && $lastname != null)
+            if ($username != null)
             {
                 $comment->setAnonyme(false);
-                $user->setFirstname($firstname);
-                $user->setLastname($lastname);
+                $user->setUsername($username);
             }
         }
 

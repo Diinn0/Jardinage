@@ -20,6 +20,7 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setFirstname($generator->firstName)
                 ->setLastname($generator->lastName)
+                ->setUsername($user->getFirstname().' '.$user->getLastname())
                 ->setEmail($generator->email)
                 ->setPassword($generator->password)
                 ->setRoles(['USER']);
