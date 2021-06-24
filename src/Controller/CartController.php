@@ -118,12 +118,14 @@ class CartController extends AbstractController
         if ($user != null) {
             $order = new Order();
             $total = 0;
+            //dd($cart);
             foreach ($cart as $item) {
                 //dd($item);
                 $order->addOrderLine($item);
                 $total += $item->getQuantity() * $item->getArticle()->getPrice();
 
                 $this->getDoctrine()->getManager()->persist($item);
+                $this->getDoctrine()->getManager()->flush();
             }
 
             $order->setSum($total);
