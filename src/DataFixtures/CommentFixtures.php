@@ -39,6 +39,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             $comment->setContent($generator->text);
             $comment->setTitle($generator->words(2, true));
             $comment->setDate(new \DateTime());
+            $comment->setImage("grenouilleContent.svg");
             $comment->setUser($users[array_rand($users, 1)]);
             $comment->setArticle($articles[array_rand($articles, 1)]);
             $manager->persist($comment);
@@ -50,6 +51,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         $commentSingle->setContent($generator->text);
         $commentSingle->setTitle($generator->title);
         $commentSingle->setDate(new \DateTime());
+        $commentSingle->setImage("grenouilleContent.svg");
         $commentSingle->setUser($users[array_rand($users, 1)]);
         $commentSingle->setArticle(null);
         $manager->persist($commentSingle);

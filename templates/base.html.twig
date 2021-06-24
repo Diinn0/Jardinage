@@ -38,7 +38,7 @@
                                 <a href="{{ path('cart') }}"> <i class="fas fa-shopping-cart shoppingCard"></i>
                                     {% if cartService.getCart.count > 0 %}
 {#                                    <span class="dot"></span>#}
-                                    <div class="dot text-center"><span>{{ cartService.getCart.count }}</span></div></a>
+                                    <div class="dot text-center"><span>{{ cartService.getItemCount }}</span></div></a>
                                      {% endif %}
                             </div>
 

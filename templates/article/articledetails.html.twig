@@ -10,6 +10,32 @@
             max-width: 500px;
             max-height: 500px;
         }
+
+        .input-hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        input[type=radio]:checked + label>img {
+            border: 1px solid #fff;
+            box-shadow: 0 0 3px 3px #090;
+        }
+
+        /* Stuff after this is only to make things more pretty */
+        input[type=radio] + label>img {
+            border: 1px solid #444;
+            border-radius: 5px;
+            width: 75px;
+            height: 75px;
+            padding: 5px;
+            transition: 500ms all;
+        }
+
+        .comment-img {
+            width: 75px;
+            height: 75px;
+        }
+
     </style>
 {% endblock %}
 
@@ -60,8 +86,11 @@
 
         {% for comment in comments %}
             <div class="bg-default border mt-0 p-2">
-                <h4>{{ comment.title }}</h4>
+                <h3>{{ comment.title }}</h3>
                 <div class="row align-items-center">
+                    <div class="col-sm-1">
+                        <img class="comment-img" src="{{ asset('assets/images/'~comment.image) }}" alt="{{ comment.image }}" />
+                    </div>
                     <div class="col-sm">
                         <p>Message posté le {{ comment.date | date("d/m/Y") }} à {{ comment.date | date("H:i:s") }} par
                             {% if comment.user != null %}
@@ -103,6 +132,7 @@
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-sm">
+                        <h5>Répondre:</h5>
                         <form class="m-0" method="post" action="{{ path('answerComment', {'slug': article.slug, 'commentStr': comment.id}) }}">
                             <div class="row">
                                 <div class="col-sm">
@@ -167,6 +197,35 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="username" name="username" placeholder="Pseudonyme">
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <input type="radio" name="image" id="discuss" class="input-hidden" value="0" checked/>
+                    <label class="text-center" for="discuss">
+                        <img src="{{ asset('assets/images/grenouilleContent.svg') }}" alt="discussion" />
+                        <p>Discussion</p>
+                    </label>
+                    <input type="radio" name="image" id="ask" class="input-hidden" value="1" />
+                    <label class="text-center" for="ask">
+                        <img src="{{ asset('assets/images/grenouilleAsk.svg') }}" alt="question" />
+                        <p>Question</p>
+                    </label>
+                    <input type="radio" name="image" id="buy" class="input-hidden" value="2" />
+                    <label class="text-center" for="buy">
+                        <img src="{{ asset('assets/images/grenouilleBuy.svg') }}" alt="achat" />
+                        <p>Achat</p>
+                    </label>
+                    <input type="radio" name="image" id="help" class="input-hidden" value="3" />
+                    <label class="text-center" for="help">
+                        <img src="{{ asset('assets/images/grenouilleMaintenance.svg') }}" alt="aide" />
+                        <p>Problème</p>
+                    </label>
+                    <input type="radio" name="image" id="angry" class="input-hidden" value="4" />
+                    <label class="text-center" for="angry">
+                        <img src="{{ asset('assets/images/grenouilleVenere.svg') }}" alt="angry" />
+                        <p>En colère</p>
+                    </label>
                 </div>
             </div>
             <textarea class="d-none content" name="content" id="content"></textarea>

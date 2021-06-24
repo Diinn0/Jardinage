@@ -168,16 +168,36 @@ class ForumController extends AbstractController
         $comment = new Comment();
 
         if ($isAnonyme != null && $isAnonyme == "no") {
-            $firstname = $request->get("firstname");
-            $lastname = $request->get("lastname");
+            $username = $request->get("username");
 
-            if ($firstname != null && $lastname != null)
+            if ($username != null)
             {
                 $comment->setAnonyme(false);
-                $user->setFirstname($firstname);
-                $user->setLastname($lastname);
+                $user->setUsername($username);
             }
         }
+
+        $image = $request->get('image');
+
+        switch ($image) {
+            default:
+                $image = "grenouilleContent.svg";
+                break;
+            case 1:
+                $image = "grenouilleAsk.svg";
+                break;
+            case 2:
+                $image = "grenouilleBuy.svg";
+                break;
+            case 3:
+                $image = "grenouilleMaintenance.svg";
+                break;
+            case 4:
+                $image = "grenouilleVenere.svg";
+                break;
+        }
+
+        $comment->setImage($image);
 
         $user->setIp($request->getClientIp());
         $this->getDoctrine()->getManager()->persist($user);
