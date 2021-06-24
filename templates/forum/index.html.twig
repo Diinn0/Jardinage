@@ -76,12 +76,12 @@
                                     {% set lastComment = subCategory.comments.get(subCategory.comments.count - 1) %}
                                     Dernière sujet:
                                     {% if lastComment.user != null %}
-                                        {{ lastComment.user.firstname }} {{ lastComment.user.lastname }}
+                                        {{ lastComment.user.username }}
                                     {% else %}
                                         {% if lastComment.anonyme %}
                                             Anonyme
                                         {% else %}
-                                            {{ lastComment.userComment.firstname }} {{ lastComment.userComment.lastname }}
+                                            {{ lastComment.userComment.username }}
                                         {% endif %}
                                     {% endif %}
                                     <br>
@@ -130,12 +130,12 @@
                                     {% set lastComment = category.comments.get(category.comments.count - 1) %}
                                     Dernière sujet:
                                     {% if lastComment.user != null %}
-                                        {{ lastComment.user.firstname }} {{ lastComment.user.lastname }}
+                                        {{ lastComment.user.username }} 
                                     {% else %}
                                         {% if lastComment.anonyme %}
                                             Anonyme
                                         {% else %}
-                                            {{ lastComment.userComment.firstname }} {{ lastComment.userComment.lastname }}
+                                            {{ lastComment.userComment.username }}
                                         {% endif %}
                                     {% endif %}
                                     <br>
