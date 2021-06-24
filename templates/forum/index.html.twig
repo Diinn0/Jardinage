@@ -15,12 +15,30 @@
             height: 75px;
         }
 
+        .oneSubject, .articleComment {
+            border: 2px solid  #55D400;
+            border-radius: 10px;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+       .oneSubject i{
+           font-size: 2em;
+       }
+        .commentButton{
+            background-color: #FF0000;
+        }
+
+        .commentButton:hover{
+            background-color: #55D400;
+        }
+
     </style>
 {% endblock %}
 
 {% block content %}
 
-    <div class="bg-white">
+    <div>
         {% if parentCategory is defined %}
             <p class="bg-success p-2 text-white rounded">
                 {% set nb = 0 %}
@@ -38,7 +56,7 @@
                 {% endfor %}
             </p>
             <div class="text-right">
-                <a href="{{ path('newPostForm', {"category": parents.get(0).id}) }}" class="btn btn-primary">Ajouter un sujet</a>
+                <a href="{{ path('newPostForm', {"category": parents.get(0).id}) }}" class="btn commentButton">Ajouter un sujet</a>
             </div>
             <h4 class="bg-success p-2 text-white text-center rounded-top mb-0">Liste des sujets</h4>
         {% endif %}
@@ -48,7 +66,58 @@
                 <p class="bg-success p-2 text-white rounded">
                     {{ category.title }}</p>
             {% endif %}
-            <table class="table table-borderless table-striped">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="articleComment">
+                        {% set subCategories = category.subCategories.unwrap() %}
+                        {% for subCategory in subCategories %}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div>Img</div>
+                            </div>
+                            <div class="col-md-4">
+                                <a class="text-dark" style="font-weight: bold;"
+                                   href="{{ path('showCategory') }}/{{ subCategory.id }}">{{ subCategory.title }}</a>
+                                <p>{{ subCategory.subtitle }}</p>
+                            </div>
+                            <div class="col-md-3">
+                                {% set counter = 0 %}
+                                {% for comment in subCategory.comments %}
+                                    {% if comment.parents == null %}
+                                        {% set counter = counter + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ counter }} Sujet(s)
+                            </div>
+                            <div class="col-md-3">
+                                <div>
+                                    <p>
+                                        {% if subCategory.comments.count > 0 %}
+                                            {% set lastComment = subCategory.comments.get(subCategory.comments.count - 1) %}
+                                            Dernière sujet:
+                                            {% if lastComment.user != null %}
+                                                {{ lastComment.user.username }}
+                                            {% else %}
+                                                {% if lastComment.anonyme %}
+                                                    Anonyme
+                                                {% else %}
+                                                    {{ lastComment.userComment.username }}
+                                                {% endif %}
+                                            {% endif %}
+                                            <br>
+                                            Le {{ lastComment.date | date("d/m/Y") }} à {{ lastComment.date | date("H:i:s") }}
+                                        {% else %}
+                                            Aucun sujet
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        {% endfor %}
+         {#   <table class="table table-borderless table-striped">
                 <tbody>
                 {% set subCategories = category.subCategories.unwrap() %}
                 {% for subCategory in subCategories %}
@@ -94,7 +163,7 @@
                     </tr>
                 {% endfor %}
                 </tbody>
-            </table>
+            </table>#}
         {% endfor %}
 
         {% if parentCategory is defined %}
@@ -103,7 +172,7 @@
                     <p style="font-weight: bold;">Aucun sujet</p>
                 </div>
             {% else %}
-                <table class="table table-borderless table-striped">
+              {#  <table class="table table-borderless table-striped">
                     <tbody>
                     {% for category in categories %}
                     <tr>
@@ -194,7 +263,111 @@
                         {% endif %}
                     {% endfor %}
                     </tbody>
-                </table>
+                </table>#}
+                <div class="row">
+                    <div class="col-12">
+
+                <div class="all">
+                    {% for category in categories %}
+
+                            <div>
+                                Img
+                            </div>
+                            <div>
+                                <a class="text-dark" style="font-weight: bold;"
+                                   href="{{ path('showCategory') }}/{{ category.id }}">{{ category.title }}</a>
+                                <p>{{ category.subtitle }}</p>
+                            </div>
+                            <div>
+                                {% set counter = 0 %}
+                                {% for comment in category.comments %}
+                                    {% if comment.parents == null %}
+                                        {% set counter = counter + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ counter }} Sujet(s)
+                            </div>
+                           <div>
+                                <p>
+                                    {% if category.comments.count > 0 %}
+                                        {% set lastComment = category.comments.get(category.comments.count - 1) %}
+                                        Dernière sujet:
+                                        {% if lastComment.user != null %}
+                                            {{ lastComment.user.username }}
+                                        {% else %}
+                                            {% if lastComment.anonyme %}
+                                                Anonyme
+                                            {% else %}
+                                                {{ lastComment.userComment.username }}
+                                            {% endif %}
+                                        {% endif %}
+                                        <br>
+                                        Le {{ lastComment.date | date("d/m/Y") }} à {{ lastComment.date | date("H:i:s") }}
+                                    {% else %}
+                                        Aucun sujet
+                                    {% endif %}
+                                </p>
+                            </div>
+                    {% endfor %}
+                    {% for comment in parentCategory.comments.unwrap() | reverse %}
+                        {% if comment.parents == null %}
+                           <div class="oneSubject d-flex flex-column">
+                               <div class="ml-2">
+                               <h5> <i class="fas fa-comments"></i>
+                                   <a class="text-dark ml-2" style="font-weight: bold;"
+                                        href="{{ path('showPost') }}/{{ comment.id }}">{{ comment.title }}</a></h5>
+                               </div>
+                               <div class="row">
+                                   <div class="col-1">
+                                       <div>
+                                           <img class="comment-img" src="{{ asset('assets/images/'~comment.image) }}" alt="{{ comment.image }}" />
+                                       </div>
+                                   </div>
+                                   <div class="col-8">
+                                      <p>{{ comment.content }}</p>
+                                       <p> <b>Publié par </b>
+                                           {% if comment.user != null %}
+                                               {{ comment.user.username }}
+                                           {% else %}
+                                               {% if comment.anonyme %}
+                                                   Anonyme
+                                               {% else %}
+                                                   {{ comment.userComment.username }}
+                                               {% endif %}
+                                           {% endif %}
+                                         <b>le</b> {{ comment.date | date("d/m/Y") }} <b>à</b> {{ comment.date | date("H:i:s") }}</p>
+                                   </div>
+
+                                   <div class="col-3">
+                                       <div class="reponses">
+                                           <p>
+                                               {% if comment.answers.count > 0 %}
+                                                   {% set lastAnswer = comment.answers.get(comment.answers.count - 1) %}
+                                                   Dernière réponse de
+                                                   {% if lastAnswer.user != null %}
+                                                       {{ lastAnswer.user.username }}
+                                                   {% else %}
+                                                       {% if lastAnswer.anonyme %}
+                                                           Anonyme
+                                                       {% else %}
+                                                           {{ lastAnswer.userComment.username }}
+                                                       {% endif %}
+                                                   {% endif %}
+                                                   <br>
+                                                   le {{ lastAnswer.date | date("d/m/Y") }} à {{ lastAnswer.date | date("H:i:s") }}
+                                               {% else %}
+                                                   Pas de réponse
+                                               {% endif %}
+                                           </p>
+                                       </div>
+                                   </div>
+
+                               </div>
+                               </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
             {% endif %}
         {% endif %}
 
