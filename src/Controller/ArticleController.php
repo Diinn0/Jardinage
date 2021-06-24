@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\OrderLine;
+use App\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Comment;
 use App\Entity\ForumCategory;
@@ -63,6 +64,17 @@ class ArticleController extends AbstractController
         $category = $forumCategoryRepository->findOneBy(array("isArticleMain" => 1));
 
         $article = $this->entityManager->getRepository(Article::class)->findOneBySlug($slug);
+        $tags = $article->getTags();
+        $arrayValues = $tags->getValues();
+        $similarArticles = $this->entityManager->getRepository(Article::class)->findSimilarArticles($arrayValues);
+        $stack = array();
+        foreach ($similarArticles as $similarArticle){
+            if($similarArticle !== $article){
+                array_push($stack, $similarArticle);
+            }
+        }
+        $finalSimilarArticles = array_slice($stack, 0,3);
+
 
         $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
         $comments = $commentRepository->findByArticle($article);
@@ -77,7 +89,8 @@ class ArticleController extends AbstractController
         return $this->render('article/articledetails.html.twig', [
             'article' => $article,
             'category' => $category,
-            'comments' => $comments
+            'comments' => $comments,
+            'finalSimilarArticles'  => $finalSimilarArticles
         ]);
     }
 

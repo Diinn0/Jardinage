@@ -47,4 +47,14 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findSimilarArticles($tags)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb ->leftjoin('a.tags', 't')
+            ->andWhere('t.id IN (:tags)')
+            ->setParameters(array( 'tags' => $tags));
+
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -27,7 +27,29 @@
         <div class="col-md-12">
             <h5 style="text-transform: none">Description</h5>
             <p>{{ article.description }}</p>
+        </div>
+        <div class="col-md-12">
             <div class="w-50" id='timeline'></div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                {% for similarArticle in finalSimilarArticles %}
+                    <div class="col-md-4 mt-5 p-0">
+                        <a class="text-decoration-none" href="{{ path('articledetails', {'slug':similarArticle.slug}) }}">
+                            <div class="border border-dark">
+                                <img class=" img-fluid px-3 pt-5" src="/uploads/{{ similarArticle.image }}" alt="Card image cap">
+                                <div>
+                                    <h5 class="text-center">{{ similarArticle.label }}</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="ml-2" style="color: black">{{ similarArticle.price }}€</span>
+                                        <button type="button" class="btn btn-dark mb-0  rounded-0">Ajouter au panier</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
