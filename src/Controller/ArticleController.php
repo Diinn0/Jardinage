@@ -185,6 +185,28 @@ class ArticleController extends AbstractController
             }
         }
 
+        $image = $request->get('image');
+
+        switch ($image) {
+            default:
+                $image = "grenouilleContent.svg";
+                break;
+            case 1:
+                $image = "grenouilleAsk.svg";
+                break;
+            case 2:
+                $image = "grenouilleBuy.svg";
+                break;
+            case 3:
+                $image = "grenouilleMaintenance.svg";
+                break;
+            case 4:
+                $image = "grenouilleVenere.svg";
+                break;
+        }
+
+        $comment->setImage($image);
+
         $user->setIp($request->getClientIp());
         $this->getDoctrine()->getManager()->persist($user);
 

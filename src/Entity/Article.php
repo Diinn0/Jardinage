@@ -79,10 +79,17 @@ class Article
      */
     private $calendarTo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="article")
+     */
+    private $orderLines;
+
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->orderLines = new ArrayCollection();
     }
 
 
@@ -185,9 +192,6 @@ class Article
         return $this->tags;
     }
 
-
-
-
     public function addTag(Tag $tag): self
     {
 
@@ -276,4 +280,38 @@ class Article
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
+
+    /**
+     * @return Collection|OrderLine[]
+     */
+    public function getOrderLines(): Collection
+    {
+        return $this->orderLines;
+    }
+
+    public function addOrderLine(OrderLine $orderLine): self
+    {
+        if (!$this->orderLines->contains($orderLine)) {
+            $this->orderLines[] = $orderLine;
+            $orderLine->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderLine(OrderLine $orderLine): self
+    {
+        if ($this->orderLines->removeElement($orderLine)) {
+            // set the owning side to null (unless already changed)
+            if ($orderLine->getArticle() === $this) {
+                $orderLine->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
 }

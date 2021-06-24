@@ -13,9 +13,11 @@ h1, h2, h3, h4, h5, h6 {
     height: 30px;
 }
 
-a:hover {
-    text-decoration: none;
+.top {
+    background-color: white !important;
 }
+
+
 
 .nav {
     font-family: 'Montserrat', sans-serif;
@@ -30,12 +32,12 @@ a:hover {
     background-color: #55D400 !important;
     background-image: none;
 }
-.nav-link {
+.navbar .nav-item .nav-link {
     background-color: #55D400 !important;
-    color: white;
+    color: white !important;
 }
-.nav-link:hover {
-    color: #FF0000;
+.navbar .nav-item .nav-link:hover {
+    color: #FF0000 !important;
 }
 .shoppingCard {
     color: #FF0000;
@@ -44,29 +46,39 @@ a:hover {
 }
 
 .form-control {
-    border-right: none;
-    border-top-right-radius: unset;
-    border-bottom-right-radius: unset;
-    border-color:#55D400;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid #55D400;
     padding-right: 10em;
+    padding-left: 0.5em;
+    border-right: none;
+    background-color: white;
 }
 
-.btn {
-    padding: 6px;
-    /*border-top-left-radius: unset;*/
-    /*border-bottom-left-radius: unset;*/
+.searchButton {
+    padding: 0.7em;
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
     margin-left: 0;
-    border-left-style: none;
     border-color:#55D400;
+    border-left-style:none;
+    background-color: white !important;
 }
 
+.searchButton i {
+    font-size: 15px;
+}
+
+.shopName {
+    margin-top: 3em;
+    color: white;
+    font-family: 'Itim', cursive;
+    font-size: 2em;
+}
 .form-inline {
     margin-right: 10em;
 }
 
-.badge {
-
-}
 
 .dot {
     position: absolute;
@@ -87,4 +99,51 @@ a:hover {
     top: -5px;
     font-size: 15px;
 
+}
+
+.footerStyle {
+    background-color:#55D400;
+    padding-top: 3em;
+}
+
+.underFooter{
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation ul, .catalogues ul {
+    list-style-type: none;
+    color: white;
+}
+
+.navigation ul a,.catalogues ul a {
+    color: white;
+}
+
+
+.catalogues ul li:first-child, .navigation ul li:first-child {
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+}
+
+.footerNav {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.articles {
+    border: 1px solid #55D400;
+    background-color: white;
+}
+
+.articles h5 {
+    color: black;
+}
+
+.articles .btn {
+    background-color: #55D400;
+}
+
+.articlePrice{
+    margin-left: 6em !important;
 }

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Entity\OrderLine;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Order;
 use App\Entity\OrderLine;
@@ -112,6 +114,8 @@ class CartController extends AbstractController
         $cart = $session->get('cart');
         $entityManager = $this->getDoctrine()->getManager();
 
+        $articleRepository = $entityManager->getRepository(Article::class);
+
         if ($cart == null)
         {
             return $this->redirectToRoute('cart');
@@ -125,20 +129,27 @@ class CartController extends AbstractController
             $order = new Order();
             $total = 0;
             //dd($cart);
-            foreach ($cart as $item) {
-                dd($item);
-                $order->addOrderLine($item);
-                $total += $item->getQuantity() * $item->getArticle()->getPrice();
 
-                
+            $test = null;
+            foreach ($cart as $item) {
+                //dd($item);
+                $orderLine = new OrderLine();
+                $article = $articleRepository->find($item->getArticle()->getId());
+                if ($article != null)
+                {
+                    $orderLine->setArticle($article);
+                    $orderLine->setQuantity($item->getQuantity());
+                    $order->addOrderLine($orderLine);
+                    $total += $item->getQuantity() * $article->getPrice();
+                }
             }
 
             $order->setSum($total);
             $order->setDate(new \DateTime());
             $order->setUser($user);
 
-            $this->getDoctrine()->getManager()->persist($order);
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->persist($order);
+            $entityManager->flush();
             $cart->clear();
             $session->save();
         }

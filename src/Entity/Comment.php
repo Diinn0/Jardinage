@@ -77,6 +77,11 @@ class Comment
      */
     private $anonyme = true;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -233,6 +238,18 @@ class Comment
     public function setAnonyme(bool $anonyme): self
     {
         $this->anonyme = $anonyme;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

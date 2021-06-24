@@ -36,7 +36,7 @@ class Order
     private $paid = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders", cascade={"ALL"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      */
     private $user;
 

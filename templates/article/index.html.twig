@@ -12,13 +12,13 @@
         {% for article in articles %}
             <div class="col-md-4 mt-5 p-0">
                 <a class="text-decoration-none" href="{{ path('articledetails', {'slug':article.slug}) }}">
-                    <div class="border border-dark">
+                    <div class="articles">
                         <img class=" img-fluid px-3 pt-5" src="/uploads/{{ article.image }}" alt="Card image cap">
-                        <div>
+                        <div class="article">
                             <h5 class="text-center">{{ article.label }}</h5>
                             <div class="d-flex justify-content-between">
                                 <span class="ml-2" style="color: black">{{ article.price }}€</span>
-                                <button type="button" class="btn btn-dark mb-0  rounded-0">Ajouter au panier</button>
+                                <button type="button" class="btn mb-0  rounded-0">Ajouter au panier</button>
                             </div>
                         </div>
                     </div>
