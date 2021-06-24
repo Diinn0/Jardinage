@@ -1,30 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello CartController!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
 
+    <style>
+        .shopCardBody {
+            border: 2px solid  #55D400;
+            border-radius: 10px;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        .totalBody {
+            border-bottom: 2px solid  #55D400;
+        }
+
+        .payButton, .payButton:hover {
+            background-color: #55D400;
+        }
+
+        .red i {
+            color: #FF0000;
+            font-size: 2em;
+        }
+
+    </style>
+
+{% endblock %}
 {% block content %}
     <h3>Panier: </h3>
-    <ul class="card">
+    <ul class="shopCard">
         {% set total = 0 %}
         {% for key, cartList in cartService.cart %}
-            <div class="card-body">
+            <div class="shopCardBody">
                 <div class="row align-items-center">
                     <div class="col-sm-2">
                         Img
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-4">
                         {{ cartList.article.label }}
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-2">
                         <a class="btn btn-success m-2 p-2" href="{{ path('removeOne', {'id': key}) }}">-</a>
                         {{ cartList.quantity }}
                         <a class="btn btn-success m-2 p-2" href="{{ path('addOne', {'id': key}) }}">+</a>
                     </div>
-                    <div class="col-sm">
+                    <div class="col-sm-3">
                         {{ cartList.article.price * cartList.quantity }} €
                     </div>
-                    <div class="col-sm">
-                        <a class="btn btn-danger" href="{{ path('remove', {'id': key}) }}">Poubelle</a>
+                    <div class="col-sm-1 red">
+                        <a href="{{ path('remove', {'id': key}) }}"><i class="fas fa-trash-alt"></i></a>
                     </div>
                 </div>
             </div>
@@ -33,7 +59,7 @@
             <h4 class="mr-auto ml-auto mt-3">Aucun article dans votre panier</h4>
         {% endfor %}
         <hr class="ml-auto mr-auto" style="width: 70%;">
-        <div class="card-body">
+        <div class="totalBody">
             <div class="row align-items-center">
                 <div class="col-sm">
                     Total: {{ total }} €
@@ -41,5 +67,7 @@
             </div>
         </div>
     </ul>
-    <a class="btn btn-primary {{ cartService.cart ? "" : "disabled" }}" href="{{ path('pay') }}">Payer la commande</a>
+    <div class="d-flex justify-content-end">
+    <a class="btn payButton {{ cartService.cart ? "" : "disabled" }}" href="{{ path('pay') }}">Payer la commande</a>
+    </div>
 {% endblock %}
