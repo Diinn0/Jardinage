@@ -30,7 +30,7 @@ a:hover {
     background-color: #55D400 !important;
     background-image: none;
 }
-.nav-link {
+.navbar .nav-item .nav-link {
     background-color: #55D400 !important;
     color: white;
 }
@@ -53,8 +53,8 @@ a:hover {
 
 .btn {
     padding: 6px;
-    /*border-top-left-radius: unset;*/
-    /*border-bottom-left-radius: unset;*/
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
     margin-left: 0;
     border-left-style: none;
     border-color:#55D400;
@@ -87,4 +87,8 @@ a:hover {
     top: -5px;
     font-size: 15px;
 
+}
+
+.footerStyle {
+    background-color:#707070;
 }
