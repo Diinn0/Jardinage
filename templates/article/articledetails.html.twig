@@ -5,14 +5,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <script src="https://cdn.tiny.cloud/1/pxp2qxs4kqtox2m98ofkx07u03id6klpmsebx1w0ubgpmifr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
-        tinymce.init({
-            selector: '.content'
-        });
-    </script>
-
     <style>
         img {
             max-width: 500px;
@@ -34,7 +26,29 @@
         <div class="col-md-12">
             <h5 style="text-transform: none">Description</h5>
             <p>{{ article.description }}</p>
+        </div>
+        <div class="col-md-12">
             <div class="w-50" id='timeline'></div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                {% for similarArticle in finalSimilarArticles %}
+                    <div class="col-md-4 mt-5 p-0">
+                        <a class="text-decoration-none" href="{{ path('articledetails', {'slug':similarArticle.slug}) }}">
+                            <div class="border border-dark">
+                                <img class=" img-fluid px-3 pt-5" src="/uploads/{{ similarArticle.image }}" alt="Card image cap">
+                                <div>
+                                    <h5 class="text-center">{{ similarArticle.label }}</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="ml-2" style="color: black">{{ similarArticle.price }}€</span>
+                                        <button type="button" class="btn btn-dark mb-0  rounded-0">Ajouter au panier</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -186,6 +200,15 @@
     <script src="{{ asset('assets/js/chronoline.js/chronoline/chronoline.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js" integrity="sha512-tBzZQxySO5q5lqwLWfu8Q+o4VkTcRGOeQGVQ0ueJga4A1RKuzmAu5HXDOXLEjpbKyV7ow9ympVoa6wZLEzRzDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.js" integrity="sha512-2h6nRNAf9ejT/sqEs1Pg7mmafcJCla+tVGo1zDQDH1U+abXb0CxzjGIJEFpzHSfG27bGHM4K+UpDXwaF0gzCHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.tiny.cloud/1/pxp2qxs4kqtox2m98ofkx07u03id6klpmsebx1w0ubgpmifr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: '.content'
+        });
+    </script>
+
+
     <script>
 
         $(document).ready(function () {
