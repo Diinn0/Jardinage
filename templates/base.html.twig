@@ -58,7 +58,7 @@
                 <div class="nav1">
                 <ul class="navbar-nav">
                     <li class="nav-item active ml-5">
-                        <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ path('homepage') }}">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active ml-5">
                         <a class="nav-link" href="{{ path('categories') }}">Catalogues <span class="sr-only">(current)</span></a>
@@ -111,6 +111,9 @@
         </nav>
     </header>
     <main>
+        {% if app.request.attributes.get('_route') == 'homepage' %}
+            <img class="d-block w-100" src="{{ asset('assets/images/crb.png') }}" alt="Chez Raclette & Binette">
+        {% endif %}
         <div class="container">
             {% block content %}{% endblock %}
         </div>

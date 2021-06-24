@@ -34,4 +34,12 @@ class SecurityController extends AbstractController
     {
         return new RedirectResponse($this->urlGenerator->generate('app_login'));
     }
+
+    /**
+     * @Route("/home", name="homepage")
+     */
+    public function homepage()
+    {
+        return $this->render('home/homepage.html.twig');
+    }
 }
