@@ -23,16 +23,18 @@ class OrderLine
      */
     private $orderObject;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $article;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $article;
+
 
     public function getId(): ?int
     {
@@ -51,18 +53,6 @@ class OrderLine
         return $this;
     }
 
-    public function getArticle(): ?Article
-    {
-        return $this->article;
-    }
-
-    public function setArticle(?Article $article): self
-    {
-        $this->article = $article;
-
-        return $this;
-    }
-
     public function getQuantity(): ?int
     {
         return $this->quantity;
@@ -71,6 +61,18 @@ class OrderLine
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
 
         return $this;
     }

@@ -130,7 +130,7 @@
                                     {% set lastComment = category.comments.get(category.comments.count - 1) %}
                                     Dernière sujet:
                                     {% if lastComment.user != null %}
-                                        {{ lastComment.user.username }} 
+                                        {{ lastComment.user.username }}
                                     {% else %}
                                         {% if lastComment.anonyme %}
                                             Anonyme
