@@ -125,6 +125,7 @@ class CartController extends AbstractController
                 $total += $item->getQuantity() * $item->getArticle()->getPrice();
 
                 $this->getDoctrine()->getManager()->persist($item);
+                $this->getDoctrine()->getManager()->flush();
             }
 
             $order->setSum($total);
