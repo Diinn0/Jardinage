@@ -4,7 +4,13 @@ namespace App\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Order;
+use App\Entity\OrderLine;
+use App\Entity\Article;
 use App\Entity\User;
+use App\Repository\ArticleRepository;
+use App\Repository\OrderRepository;
+use App\Repository\OrderLineRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -120,12 +126,11 @@ class CartController extends AbstractController
             $total = 0;
             //dd($cart);
             foreach ($cart as $item) {
-                //dd($item);
+                dd($item);
                 $order->addOrderLine($item);
                 $total += $item->getQuantity() * $item->getArticle()->getPrice();
 
-                $this->getDoctrine()->getManager()->persist($item);
-                $this->getDoctrine()->getManager()->flush();
+                
             }
 
             $order->setSum($total);

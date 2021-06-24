@@ -36,12 +36,12 @@ class Order
     private $paid = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders", cascade={"ALL"})
      */
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="orderObject", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="orderObject", cascade={"ALL"})
      */
     private $orderLines;
 
