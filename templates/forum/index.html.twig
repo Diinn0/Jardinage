@@ -131,7 +131,7 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    {% for comment in parentCategory.comments.unwrap() %}
+                    {% for comment in parentCategory.comments.unwrap() | reverse %}
                         {% if comment.parents == null %}
                             <tr>
                                 <td class="align-middle" style="margin: 0;padding-right: 0; width: 50px;">
@@ -168,7 +168,7 @@
                                                 {% endif %}
                                             {% endif %}
                                             <br>
-                                            le {{ comment.date | date("d/m/Y") }} à {{ comment.date | date("H:i:s") }}
+                                            le {{ lastAnswer.date | date("d/m/Y") }} à {{ lastAnswer.date | date("H:i:s") }}
                                         {% else %}
                                             Pas de réponse
                                         {% endif %}

@@ -104,6 +104,7 @@ class CartController extends AbstractController
     {
         $session = new Session();
         $cart = $session->get('cart');
+        $entityManager = $this->getDoctrine()->getManager();
 
         if ($cart == null)
         {
@@ -118,6 +119,7 @@ class CartController extends AbstractController
             $order = new Order();
             $total = 0;
             foreach ($cart as $item) {
+                //dd($item);
                 $order->addOrderLine($item);
                 $total += $item->getQuantity() * $item->getArticle()->getPrice();
 

@@ -41,5 +41,5 @@
             </div>
         </div>
     </ul>
-    <a class="btn btn-primary {{ cartService.cart ? "disabled" : "" }}" href="{{ path('pay') }}">Payer la commande</a>
+    <a class="btn btn-primary {{ cartService.cart ? "" : "disabled" }}" href="{{ path('pay') }}">Payer la commande</a>
 {% endblock %}

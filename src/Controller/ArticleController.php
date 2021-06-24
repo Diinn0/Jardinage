@@ -94,7 +94,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    /**
+   /**
      * @Route("/article/{slug}/add/{quantity}", name="addToCart")
      */
     public function addProductToCart(String $slug, int $quantity = 1): Response
@@ -269,5 +269,4 @@ class ArticleController extends AbstractController
             "slug" => $slug
         ]);
     }
-
 }
