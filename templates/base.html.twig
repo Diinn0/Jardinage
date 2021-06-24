@@ -7,81 +7,10 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/css/material-kit.css">
+{#            <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">#}
             <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-            <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
-            <style>
-                a:hover {
-                    text-decoration: none;
-                }
-                nav {
-                    font-family: 'Montserrat', sans-serif !important;
-                }
-
-                .shop{
-                    font-family: 'Itim', cursive;
-                    color: #FF0000;
-                    font-size: 2em
-                }
-                .navbar {
-                    background-color: #55D400 !important;
-                    background-image: none;
-                }
-                .nav-link {
-                    background-color: #55D400 !important;
-                    color: white;
-                }
-                .nav-link:hover {
-                    color: #FF0000;
-                }
-                .shoppingCard {
-                    color: #FF0000;
-                    margin-right: 2em;
-                    font-size: 2em;
-                }
-
-                .form-control {
-                    border-right: none;
-                    border-top-right-radius: unset;
-                    border-bottom-right-radius: unset;
-                    border-color:#55D400;
-                    padding-right: 10em;
-                }
-
-                .btn {
-                    padding: 6px;
-                    border-top-left-radius: unset;
-                    border-bottom-left-radius: unset;
-                    margin-left: 0;
-                    border-left-style: none;
-                    border-color:#55D400;
-                }
-
-                .form-inline {
-                    margin-right: 10em;
-                }
-
-                .badge {
-                    position: absolute;
-                    right: 3.5em;
-                    font-size: 1.2em;
-                    color: white;
-                    bottom: 1.7em;
-                }
-
-                .dot {
-                    position: absolute;
-                    right: 2.8em;
-                    font-size: 1.5em;
-                    bottom: 1.4em;
-                    height: 25px;
-                    width: 25px;
-                    background-color: #FF0000;
-                    border-radius: 50%;
-                    display: inline-block;
-                    border: 3px solid #FF0000;
-                }
-            </style>
         {% endblock %}
 
         {% block javascripts %}
@@ -108,8 +37,8 @@
                                 </form>
                                 <a href="{{ path('cart') }}"> <i class="fas fa-shopping-cart shoppingCard"></i>
                                     {% if cartService.getCart.count > 0 %}
-                                    <span class="dot"></span>
-                                    <span class="badge badge-default">{{ cartService.getCart.count }}</span></a>
+{#                                    <span class="dot"></span>#}
+                                    <div class="dot text-center"><span>{{ cartService.getCart.count }}</span></div></a>
                                      {% endif %}
                             </div>
 
@@ -187,6 +116,7 @@
         </div>
     </main>
 
-    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
+{#    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>#}
     </body>
 </html>
