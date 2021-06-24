@@ -19,7 +19,7 @@
         {% endblock %}
     </head>
     <body>
-    <header>
+
         <div class="row">
             <div class="col-12">
                 <div class="top py-3">
@@ -34,7 +34,7 @@
                             <div class="d-flex justify-content-end  align-items-center">
                                 <form class="form-inline my-lg-0">
                                     <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                                    <button class="btn searchButton btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                 </form>
                                 <a href="{{ path('cart') }}"> <i class="fas fa-shopping-cart shoppingCard"></i>
                                     {% if cartService.getCart.count > 0 %}
@@ -110,7 +110,7 @@
                 </ul>
             </div>
         </nav>
-    </header>
+
     <main>
         {% if app.request.attributes.get('_route') == 'homepage' %}
             <img class="d-block w-100" src="{{ asset('assets/images/crb.png') }}" alt="Chez Raclette & Binette">
@@ -120,10 +120,72 @@
         </div>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
+
 {#    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>#}
-    <footer class="container py-5 mt-5 footerStyle">
-        <p class="text-center text-light"> <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
+    <div class=" mt-5 footerStyle">
+        <div class="underFooter">
+        <div class="footerNav ml-lg-4">
+        <div class="navigation">
+            <ul>
+                <li>
+                   Navigation
+                </li>
+                <li>
+                    <a href="{{ path('homepage') }}">Accueil</a>
+                </li>
+                <li>
+                    <a href="{{ path('categories') }}">Catalogues</a>
+                </li>
+                <li>
+                    <a href="{{ path('forum') }}">Forum </a>
+                </li>
+                {% if app.user %}
+                    <li>
+                        <a href="{{ path('app_account') }}">Mon compte</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_logout') }}">Deconnexion </a>
+                    </li>
+
+                {% else %}
+                    <li>
+                        <a href="{{ path('app_register') }}">S'inscrire</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('app_login') }}">Se connecter</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+            <div class="catalogues">
+                <ul>
+                <li>
+                    Catalogues
+                </li>
+                <li>
+                    <a href="">Catalogue1</a>
+                </li>
+                <li>
+                    <a href="">Catalogue2</a>
+                </li>
+                <li>
+                    <a href="">Catalogue3 </a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div class="searchForm">
+            <form class="form-inline my-lg-0">
+                <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
+                <button class="btn searchButton btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="shopName ml-2">Chez Raclette & Binette</div>
+        </div>
+        </div>
+        <p class="text-center text-light"> Privacy Terms</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
     </body>
 </html>

@@ -10,6 +10,41 @@
             max-width: 500px;
             max-height: 500px;
         }
+        .articlePrice{
+            margin-left: 2.5em !important;
+            margin-bottom: 1em;
+            font-size: 2em;
+        }
+
+        .btn{
+            background-color: #FF0000;
+        }
+        .btn:hover {
+            background-color: #55D400;
+        }
+
+        .commentButton{
+            background-color: #55D400;
+        }
+
+        .toggle {
+            background-color:#55D400 !important ;
+        }
+        .minus{
+            border-right: 3px solid #55D400;
+        }
+
+        .plus{
+            border-left: 3px solid #55D400;
+        }
+
+        h5 {
+            font-size: 2em;
+        }
+
+        .commentSection {
+            border: 1px solid #55D400;
+        }
     </style>
 {% endblock %}
 
@@ -19,43 +54,52 @@
         <div class="col-md-6">
             <img src="/uploads/{{ article.image }}" alt="{{ article.image }}">
         </div>
-        <div class="col-md-6 addToCard">
-            <p class="ml-5">{{ article.price }}€</p>
-            <a class="btn btn-secondary btn-lg" href="{{ path('addToCart', {'slug': article.slug, 'quantity': 1}) }}">Ajouter au panier</a>
+        <div class="col-md-6 addToCard mt-5">
+            <p class="articlePrice">{{ article.price }}€</p>
+    <div class="cardQuantity d-flex justify-content-around">
+            <div>
+                <a class=" m-2 p-2 minus">-</a>
+                    1
+                <a class=" m-2 p-2 plus" >+</a>
+            </div>
+
+            <a class="btn  btn-lg" href="{{ path('addToCart', {'slug': article.slug, 'quantity': 1}) }}">Ajouter au panier</a>
+    </div>
         </div>
         <div class="col-md-12">
             <h5 style="text-transform: none">Description</h5>
             <p>{{ article.description }}</p>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 mt-3">
+            <h5 style="text-transform: none;">Calendar d'utilisation</h5>
             <div class="w-50" id='timeline'></div>
         </div>
         <div class="col-md-12">
             <div class="row">
+                <div class="col-md-12"><h5 style="text-transform: none">Articles liées</h5></div>
                 {% for similarArticle in finalSimilarArticles %}
-                    <div class="col-md-4 mt-5 p-0">
+                    <div class="col-md-3  p-0">
                         <a class="text-decoration-none" href="{{ path('articledetails', {'slug':similarArticle.slug}) }}">
-                            <div class="border border-dark">
+                            <div class="articles">
                                 <img class=" img-fluid px-3 pt-5" src="/uploads/{{ similarArticle.image }}" alt="Card image cap">
-                                <div>
+                                <div class="article">
                                     <h5 class="text-center">{{ similarArticle.label }}</h5>
                                     <div class="d-flex justify-content-between">
                                         <span class="ml-2" style="color: black">{{ similarArticle.price }}€</span>
-                                        <button type="button" class="btn btn-dark mb-0  rounded-0">Ajouter au panier</button>
+                                        <button type="button" class="btn mb-0  rounded-0">Ajouter au panier</button>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 {% endfor %}
+                <div class="col-md-3"></div>
             </div>
         </div>
-    </div>
 
 
-
-
-    <div class="bg-default border mt-3 p-3">
+<div class="col-md-12 p-0">
+    <div class="bg-default commentSection mt-5 p-3">
         <h2>Commentaires:</h2>
 
         {% for comment in comments %}
@@ -173,12 +217,15 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="form-group">
-                        <input class="btn btn-primary" type="submit" value="Envoyer">
+                        <input class="btn commentButton" type="submit" value="Envoyer">
                     </div>
                 </div>
             </div>
         </form>
     </div>
+
+    </div>
+</div>
 
     <script>
         function refresh() {
