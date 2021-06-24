@@ -5,14 +5,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <script src="https://cdn.tiny.cloud/1/pxp2qxs4kqtox2m98ofkx07u03id6klpmsebx1w0ubgpmifr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
-        tinymce.init({
-            selector: '.content'
-        });
-    </script>
-
     <style>
         img {
             max-width: 500px;
@@ -208,6 +200,15 @@
     <script src="{{ asset('assets/js/chronoline.js/chronoline/chronoline.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js" integrity="sha512-tBzZQxySO5q5lqwLWfu8Q+o4VkTcRGOeQGVQ0ueJga4A1RKuzmAu5HXDOXLEjpbKyV7ow9ympVoa6wZLEzRzDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.js" integrity="sha512-2h6nRNAf9ejT/sqEs1Pg7mmafcJCla+tVGo1zDQDH1U+abXb0CxzjGIJEFpzHSfG27bGHM4K+UpDXwaF0gzCHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.tiny.cloud/1/pxp2qxs4kqtox2m98ofkx07u03id6klpmsebx1w0ubgpmifr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: '.content'
+        });
+    </script>
+
+
     <script>
 
         $(document).ready(function () {

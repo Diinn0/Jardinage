@@ -2,18 +2,86 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/css/material-kit.min.css" integrity="sha512-maBfUe6UBMwSa9YhA4MKGi7M/KMBw8KEt5HsqKHWNXCST1qzjlNgxOCP7M+eNRI2T/JQpWRUHI8quTNhWTTKtQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css" integrity="sha256-u40zn9KeZYpMjgYaxWJccb4HnP0i8XI17xkXrEklevE=" crossorigin="anonymous">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/css/material-kit.css">
+            <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+            <style>
+                a:hover {
+                    text-decoration: none;
+                }
+                nav {
+                    font-family: 'Montserrat', sans-serif !important;
+                }
 
+                .shop{
+                    font-family: 'Itim', cursive;
+                    color: #FF0000;
+                    font-size: 2em
+                }
+                .navbar {
+                    background-color: #55D400 !important;
+                    background-image: none;
+                }
+                .nav-link {
+                    background-color: #55D400 !important;
+                    color: white;
+                }
+                .nav-link:hover {
+                    color: #FF0000;
+                }
+                .shoppingCard {
+                    color: #FF0000;
+                    margin-right: 2em;
+                    font-size: 2em;
+                }
 
+                .form-control {
+                    border-right: none;
+                    border-top-right-radius: unset;
+                    border-bottom-right-radius: unset;
+                    border-color:#55D400;
+                    padding-right: 10em;
+                }
 
+                .btn {
+                    padding: 6px;
+                    border-top-left-radius: unset;
+                    border-bottom-left-radius: unset;
+                    margin-left: 0;
+                    border-left-style: none;
+                    border-color:#55D400;
+                }
+
+                .form-inline {
+                    margin-right: 10em;
+                }
+
+                .badge {
+                    position: absolute;
+                    right: 3.5em;
+                    font-size: 1.2em;
+                    color: white;
+                    bottom: 1.7em;
+                }
+
+                .dot {
+                    position: absolute;
+                    right: 2.8em;
+                    font-size: 1.5em;
+                    bottom: 1.4em;
+                    height: 25px;
+                    width: 25px;
+                    background-color: #FF0000;
+                    border-radius: 50%;
+                    display: inline-block;
+                    border: 3px solid #FF0000;
+                }
+            </style>
         {% endblock %}
 
         {% block javascripts %}
@@ -29,17 +97,20 @@
                         <div class="col-md-4">
                             <div class="d-flex align-items-center">
                             <a class="navbar-brand ml-3" href=""><img class="logo" src="{{ asset('assets/images/jardinageGrenouille.png') }}" alt="logo"></a>
-                            <div>Chez Raclette & Binette</div>
+                            <div class="shop">Chez Raclette & Binette</div>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="d-flex justify-content-end  align-items-center">
                                 <form class="form-inline my-lg-0">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                                    <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                 </form>
-                                <a href="{{ path('cart') }}"><img class="mx-3" src="{{ asset('assets/images/shopping-cart (1).png') }}" alt="shoppingCard">
+                                <a href="{{ path('cart') }}"> <i class="fas fa-shopping-cart shoppingCard"></i>
+                                    {% if cartService.getCart.count > 0 %}
+                                    <span class="dot"></span>
                                     <span class="badge badge-default">{{ cartService.getCart.count }}</span></a>
+                                     {% endif %}
                             </div>
 
                         </div>
@@ -50,19 +121,44 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-dark">
+        <nav class="navbar navbar-expand-md">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto ">
-                    <li class="nav-item active">
+            <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarCollapse">
+                <div class="nav1">
+                <ul class="navbar-nav">
+                    <li class="nav-item active ml-5">
                         <a class="nav-link" href="">Accueil <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('categories') }}">Nos catalogues <span class="sr-only">(current)</span></a>
+                    <li class="nav-item active ml-5">
+                        <a class="nav-link" href="{{ path('categories') }}">Catalogues <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item active ml-5">
+                        <a class="nav-link" href="{{ path('forum') }}">Forum <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                </div>
+                    <div class="nav2">
+                        <ul class="navbar-nav ">
+                    {% if app.user %}
+                    <li class="nav-item active mr-5">
+                        <a class="nav-link" href="{{ path('app_account') }}">Mon compte</a>
+                    </li>
+                    <li class="nav-item active  mr-5">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Deconnexion </a>
+                        </li>
+
+                    {% else %}
+                    <li class="nav-item active mr-5">
+                            <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                        </li>
+
+                    <li class="nav-item active mr-5">
+                            <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                    {% endif %}
+                   {# <li class="nav-item active">
                         <a class="nav-link" href="{{ path('app_login') }}">Connexion <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
@@ -73,13 +169,13 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ path('app_account') }}">Mon Compte <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('forum') }}">Forum <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
+                    </li>#}
+
+                    <li class="nav-item active mr-5">
                         <a class="nav-link" href="{{ path('admin') }}">Admin <span class="sr-only">(current)</span></a>
                     </li>
+                        </ul>
+                    </div>
 
                 </ul>
             </div>
@@ -91,6 +187,6 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js" integrity="sha256-AOrsg7pOO9zNtKymdz4LsI+KyLEHhTccJrZVU4UFwIU=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
     </body>
 </html>

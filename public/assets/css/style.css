@@ -2,3 +2,13 @@
     width: 25px;
     height: 30px;
 }
+ .navbar {
+    background-color: #55D400 !important;
+    background-image: none;
+}
+
+ .test{
+     font-size: 18em;
+     color: red;
+ }
+
