@@ -118,6 +118,7 @@ class CartController extends AbstractController
         if ($user != null) {
             $order = new Order();
             $total = 0;
+            //dd($cart);
             foreach ($cart as $item) {
                 //dd($item);
                 $order->addOrderLine($item);
