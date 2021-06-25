@@ -14,9 +14,7 @@
 
         {% endblock %}
 
-        {% block javascripts %}
 
-        {% endblock %}
     </head>
     <body>
 
@@ -33,7 +31,7 @@
                         <div class="col-md-8">
                             <div class="d-flex justify-content-end  align-items-center">
                                 <form class="form-inline my-lg-0">
-                                    <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
+                                    <input class="search form-control" type="search" placeholder="Rechercher" aria-label="Search">
                                     <button class="btn searchButton btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                 </form>
                                 <a href="{{ path('cart') }}"> <i class="fas fa-shopping-cart shoppingCard"></i>
@@ -63,6 +61,16 @@
                     </li>
                     <li class="nav-item active ml-5">
                         <a class="nav-link" href="{{ path('categories') }}">Catalogues <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown ml-5">
+                        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Catalogues <span class="sr-only">(current)</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% for category in categoryService.displayAllCategories %}
+                        <a class="dropdown-item" href="{{ path('article', {'id':category.id}) }}">{{ category.label }}</a>
+                             {% endfor %}
+                        </div>
                     </li>
                     <li class="nav-item active ml-5">
                         <a class="nav-link" href="{{ path('forum') }}">Forum <span class="sr-only">(current)</span></a>
@@ -101,9 +109,11 @@
                         <a class="nav-link" href="{{ path('app_account') }}">Mon Compte <span class="sr-only">(current)</span></a>
                     </li>#}
 
-                    <li class="nav-item active mr-5">
-                        <a class="nav-link" href="{{ path('admin') }}">Admin <span class="sr-only">(current)</span></a>
-                    </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item active mr-5">
+                                    <a class="nav-link" href="{{ path('admin') }}">Admin <span class="sr-only">(current)</span></a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
 
@@ -169,21 +179,19 @@
                 <li>
                     Catalogues
                 </li>
-                <li>
-                    <a href="">Catalogue1</a>
-                </li>
-                <li>
-                    <a href="">Catalogue2</a>
-                </li>
-                <li>
-                    <a href="">Catalogue3 </a>
-                </li>
+                    {% for category in categoryService.displayAllCategories %}
+                        <li>
+                            <a href="{{ path('article', {'id':category.id}) }}">{{ category.label }}</a>
+                        </li>
+                    {% endfor %}
+
+
                 </ul>
             </div>
         </div>
         <div class="searchForm">
             <form class="form-inline my-lg-0">
-                <input class="form-control" type="search" placeholder="Rechercher" aria-label="Search">
+                <input class="search form-control" type="search" placeholder="Rechercher" aria-label="Search">
                 <button class="btn searchButton btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>
             <div class="shopName ml-2">Chez Raclette & Binette</div>
@@ -191,6 +199,10 @@
         </div>
         <p class="text-center text-light"> Privacy Terms</p>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
+        {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.js" integrity="sha512-6FiE2GDo6T+Avbu3raf33Rqp0LCPF0gQCBtP5xrpgjEdSXu4W57pbfwDRh9u9usQ9MnXBUg22dwuQq1GLgPmsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.js.map"></script>
+        {% endblock %}
     </body>
 </html>
