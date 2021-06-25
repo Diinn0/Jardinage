@@ -19,6 +19,16 @@ class OrderLineRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderLine::class);
     }
 
+    public function findOrderLinesByOrder($id)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.orderObject = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return OrderLine[] Returns an array of OrderLine objects
     //  */

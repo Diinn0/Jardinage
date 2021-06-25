@@ -30,7 +30,7 @@ class OrderLine
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines", cascade={"ALL"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;

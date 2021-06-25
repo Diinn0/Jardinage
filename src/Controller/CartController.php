@@ -6,8 +6,6 @@ use App\Entity\Article;
 use App\Entity\OrderLine;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Order;
-use App\Entity\OrderLine;
-use App\Entity\Article;
 use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\OrderRepository;

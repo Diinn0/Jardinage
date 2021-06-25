@@ -7,31 +7,70 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">Mon Compte</h1>
-    <p class="lead">Historique et suivi de vos commandes :)</p>
   </div>
 </div>
 
 <div class="container">
 
     {% for order in orders %}
-
         <div class="card mb-5">
-            <div class="card-header">
-                Commande n° {{ order.id }}
+            <div class="card-header card-header-success">
+                Commande n° {{ order.id }} - <cite title="Source Title">Achat effectué le {{ order.date|date("m/d/Y") }}</cite>
             </div>
             <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>Prix: {{ order.sum }} €</p>
-{#                    <!--<p>Date: <span class="badge badge-info">{{ order.date }} </span></p>-->#}
-                    <footer class="blockquote-footer">Achat effectué le  <cite title="Source Title">{{ order.date|date("m/d/Y") }}</cite></footer>
-                </blockquote>
+                <div class="row align-items-center">
+                    <div class="col-sm">Vos articles</div>
+                    <div class="col-sm">Quantité</div>
+                    <div class="col-sm">Prix</div>
+                </div><hr>
+                {% for orderLine in order.orderLines %}
+                    <div class="row align-items-center">
+                        <div class="col-sm">{{ orderLine.article.label }}</div>
+                        <div class="col-sm"><span class="badge badge-success">{{ orderLine.quantity }}<span></div>
+                        <div class="col-sm">{{ orderLine.quantity * orderLine.article.price }}</div>
+                    </div><hr>
+                {% endfor %}
+                <div class="row align-items-center">
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm">Prix: {{ order.sum }} €</div>
+                </div><hr>
             </div>
         </div>
-
-
     {% else %}
         <span class="alert alert-danger">Aucunes commandes effectuées</span>
     {% endfor %}
+
+    <hr>
+
+    <div class="row">
+        <div class="card mb-5">
+            <div class="card-header card-header-success">
+                Mes Informations
+            </div>
+            <div class="card-body">
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.firstname, {
+                        label: 'Prénom'
+                    }) }}
+                    {{ form_row(registrationForm.lastname, {
+                        label: 'Nom'
+                    }) }}
+                    {{ form_row(registrationForm.username, {
+                        label: 'Pseudonyme'
+                    }) }}
+                    {{ form_row(registrationForm.email, {
+                        label: 'Adresse mail'
+                    }) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Mot de passe'
+                    }) }}
+                    <button type="submit" class="btn">Modifier</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+
+    </div>
 
 
 </div>
