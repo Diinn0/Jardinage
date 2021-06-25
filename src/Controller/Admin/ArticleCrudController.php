@@ -43,7 +43,7 @@ class ArticleCrudController extends AbstractCrudController
             MoneyField::new('price')->setCurrency('EUR'),
             NumberField::new('sales'),
             BooleanField::new('available'),
-            CollectionField::new('tags'),
+            AssociationField::new('tags'),
             AssociationField::new('category')
         ];
     }

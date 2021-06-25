@@ -93,11 +93,11 @@
         <div class="col-md-6 addToCard mt-5">
             <p class="articlePrice">{{ article.price }}€</p>
     <div class="cardQuantity d-flex justify-content-around">
-            <div>
-                <a class=" m-2 p-2 minus">-</a>
-                    1
-                <a class=" m-2 p-2 plus" >+</a>
-            </div>
+{#            <div>#}
+{#                <a class=" m-2 p-2 minus">-</a>#}
+{#                    1#}
+{#                <a class=" m-2 p-2 plus" >+</a>#}
+{#            </div>#}
 
             <a class="btn  btn-lg" href="{{ path('addToCart', {'slug': article.slug, 'quantity': 1}) }}">Ajouter au panier</a>
     </div>
@@ -106,10 +106,13 @@
             <h5 class="details" >Description</h5>
             <p>{{ article.description }}</p>
         </div>
+
+        {% if article.calendarTo is not null and article.calendarFrom is not null %}
         <div class="col-md-12 mt-3">
-            <h5 class="details" >Calendar d'utilisation</h5>
+            <h5 class="details" >Calendrier d'utilisation</h5>
             <div class="w-50" id='timeline'></div>
         </div>
+        {% endif %}
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12"><h5 class="details" >Articles liées</h5></div>
