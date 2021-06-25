@@ -41,7 +41,7 @@ class Order
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="orderObject", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="orderObject", cascade={"ALL"})
      */
     private $orderLines;
 

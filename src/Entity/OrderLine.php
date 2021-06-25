@@ -18,7 +18,7 @@ class OrderLine
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderLines", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderLines")
      * @ORM\JoinColumn(nullable=false)
      */
     private $orderObject;
@@ -30,7 +30,7 @@ class OrderLine
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="orderLines", cascade={"ALL"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;

@@ -25,7 +25,7 @@ class Category
     private $label;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="category", cascade={"remove"})
      */
     private $articles;
 
