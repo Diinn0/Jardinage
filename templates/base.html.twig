@@ -14,9 +14,7 @@
 
         {% endblock %}
 
-        {% block javascripts %}
 
-        {% endblock %}
     </head>
     <body>
 
@@ -63,6 +61,16 @@
                     </li>
                     <li class="nav-item active ml-5">
                         <a class="nav-link" href="{{ path('categories') }}">Catalogues <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown ml-5">
+                        <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Catalogues <span class="sr-only">(current)</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% for category in categoryService.displayAllCategories %}
+                        <a class="dropdown-item" href="{{ path('article', {'id':category.id}) }}">{{ category.label }}</a>
+                             {% endfor %}
+                        </div>
                     </li>
                     <li class="nav-item active ml-5">
                         <a class="nav-link" href="{{ path('forum') }}">Forum <span class="sr-only">(current)</span></a>
@@ -171,15 +179,13 @@
                 <li>
                     Catalogues
                 </li>
-                <li>
-                    <a href="">Catalogue1</a>
-                </li>
-                <li>
-                    <a href="">Catalogue2</a>
-                </li>
-                <li>
-                    <a href="">Catalogue3 </a>
-                </li>
+                    {% for category in categoryService.displayAllCategories %}
+                        <li>
+                            <a href="{{ path('article', {'id':category.id}) }}">{{ category.label }}</a>
+                        </li>
+                    {% endfor %}
+
+
                 </ul>
             </div>
         </div>
@@ -193,6 +199,10 @@
         </div>
         <p class="text-center text-light"> Privacy Terms</p>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
+        {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.js" integrity="sha512-6FiE2GDo6T+Avbu3raf33Rqp0LCPF0gQCBtP5xrpgjEdSXu4W57pbfwDRh9u9usQ9MnXBUg22dwuQq1GLgPmsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/material-kit/2.0.6/js/material-kit.js.map"></script>
+        {% endblock %}
     </body>
 </html>
